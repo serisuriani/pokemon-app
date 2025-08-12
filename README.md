@@ -18,7 +18,7 @@ A simple and responsive web application that fetches and displays a list of Pok�
 
 ---
 
-## 🚀 Getting Started
+## 🚀 To run locally
 
 ```bash
 # Clone the repository
@@ -29,9 +29,13 @@ cd pokemon-app
 
 # Install dependencies
 npm install
+```
+## 🚀 Online Link
 
-# Run the development server
-npm run dev
+```bash
+# Link
+https://serisuriani.github.io/pokemon-app/#/
+
 ```
 
 ---
