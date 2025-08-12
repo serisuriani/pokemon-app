@@ -45,7 +45,10 @@
         tabindex="0"
         @keyup.enter="goToDetails(pokemon.id)"
       >
-        <PokemonCard :pokemon="pokemon" />
+        <PokemonCard
+          :pokemon="pokemon"
+          @toggle-favorite="handleToggleFavorite"
+        />
       </div>
     </div>
   </div>
@@ -57,7 +60,7 @@ import { usePokemonStore } from '../stores/pokemonStore'
 import PokemonCard from '../components/pokemonCard.vue'
 import Loader from '../components/AppLoader.vue'
 import { useRouter } from 'vue-router'
-import pokeballImg from '../assets/pokeball.png' // <-- Update the path if needed
+import pokeballImg from '../assets/pokeball.png' // Adjust path if needed
 
 export default {
   components: { PokemonCard, Loader },
@@ -83,7 +86,14 @@ export default {
       router.push(`/pokemon/${id}`)
     }
 
-    return { store, search, favoritesOnly, filteredPokemons, goToDetails, pokeballImg }
+    function handleToggleFavorite(id) {
+      const pokemon = store.pokemons.find(p => p.id === id)
+      if (pokemon) {
+        pokemon.favorite = !pokemon.favorite
+      }
+    }
+
+    return { store, search, favoritesOnly, filteredPokemons, goToDetails, pokeballImg, handleToggleFavorite }
   }
 }
 </script>

@@ -1,8 +1,19 @@
 <template>
   <div
-    class="card p-3 h-100 shadow-sm"
+    class="card p-3 h-100 shadow-sm position-relative"
     :style="{ backgroundColor: typeStyles[mainType]?.bg || '#eee', borderColor: typeStyles[mainType]?.border || '#ccc' }"
   >
+    <!-- Favorite toggle button -->
+    <button
+      class="favorite-btn"
+      @click.stop="toggleFavorite"
+      :aria-pressed="pokemon.favorite.toString()"
+      :title="pokemon.favorite ? 'Unfavorite' : 'Mark as Favorite'"
+    >
+      <span v-if="pokemon.favorite" class="favorite-icon">❤️</span>
+      <span v-else class="favorite-icon">🤍</span>
+    </button>
+
     <div class="image-wrapper mx-auto mb-3">
       <img
         :src="pokemon.image"
@@ -71,6 +82,11 @@ export default {
         fairy:   { bg: '#f9e6f1', border: '#d87bbe', text: '#7b3f6b', badgeBg: '#d87bbe', badgeText: '#fff', badgeBorder: '#b45a91', icon: '✨' }
       }
     }
+  },
+  methods: {
+    toggleFavorite() {
+      this.$emit('toggle-favorite', this.pokemon.id)
+    }
   }
 }
 </script>
@@ -86,6 +102,7 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  position: relative; /* for favorite button */
 }
 
 .card:hover {
@@ -122,5 +139,27 @@ export default {
   align-items: center;
   user-select: none;
   text-transform: capitalize;
+}
+
+.favorite-btn {
+  background: transparent;
+  border: none;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 1.6rem;
+  cursor: pointer;
+  user-select: none;
+  color: #ff4444;
+  transition: transform 0.2s ease;
+}
+
+.favorite-btn:hover {
+  transform: scale(1.2);
+}
+
+.favorite-icon {
+  pointer-events: none;
+  user-select: none;
 }
 </style>
