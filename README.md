@@ -33,7 +33,6 @@ npm install
 ## 🚀 Online Link
 
 ```bash
-# Link
 https://serisuriani.github.io/pokemon-app/#/
 
 ```
